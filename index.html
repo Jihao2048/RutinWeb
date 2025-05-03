@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RutinWeb</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="menu">
+        <button class="menu-item" onclick="cloneAndAnimate(event, 0)">首页</button>
+        <button class="menu-item" onclick="cloneAndAnimate(event, 1)">小工具</button>
+        <button class="menu-item" onclick="cloneAndAnimate(event, 2)"></button>
+        <div class="audio-control-container">
+            <div class="audio-control" id="audio-control" onclick="togglePlayPause()">
+                <div class="inner-circle" id="inner-circle"></div>
+            </div>
+            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.2" oninput="adjustVolume(this.value)">
+            <div class="playback-status" id="playback-status">
+                <div class="status-text" id="status-text"></div>
+                <div class="lyric-text" id="lyric-text"></div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div id="home-content" class="content-item"></div>
+        <div id="content-1" class="content-item">
+            <div class="tools-container" id="tools-container"></div>
+            <div id="iframe-container" class="iframe-container">
+                <div class="iframe-header">
+                    <button id="back-button" class="back-button">← 返回</button>
+                    <span id="iframe-title" class="iframe-title"></span>
+                    <span id="security-badge" class="security-badge" title="此工具在安全沙箱中运行">🔒</span>
+                </div>
+                <div id="iframe-wrapper" class="iframe-wrapper">
+                    <iframe id="tool-iframe" sandbox="allow-scripts allow-same-origin" class="tool-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+        <div id="content-2" class="content-item"></div>
+    </div>
+    <audio id="bgm" src="https://api.injahow.cn/meting/?type=url&id=2619968667"></audio>
+    <audio id="option-sound" src="s.wav"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
