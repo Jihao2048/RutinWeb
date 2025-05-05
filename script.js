@@ -234,6 +234,39 @@ document.getElementById('back-button').addEventListener('click', backToTools);
 
 // 页面初始化
 document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
     audio.addEventListener('timeupdate', updateLyrics);
     initTools();
 });
+
+function initMobileMenu() {
+    const menu = document.querySelector('.menu');
+    const menuToggle = document.getElementById('menu-toggle');
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    if (isMobile) {
+        menu.classList.remove('desktop-menu');
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // 阻止事件冒泡
+            menu.classList.toggle('active');
+        });
+        
+        document.addEventListener('click', () => {
+            menu.classList.remove('active');
+        });
+    } else {
+        menu.classList.add('desktop-menu');
+    }
+    
+    // 窗口大小改变时重新检测
+    window.addEventListener('resize', () => {
+        if (window.matchMedia("(max-width: 768px)").matches) {
+            menu.classList.remove('desktop-menu');
+            menuToggle.style.display = 'flex';
+        } else {
+            menu.classList.add('desktop-menu');
+            menuToggle.style.display = 'none';
+            menu.classList.remove('active');
+        }
+    });
+}
