@@ -7,13 +7,15 @@ const optionSound = document.getElementById('option-sound');
 let lyricsData = [];
 let lastLyric = "";
 let hideTimeout = null;
+let MusicId = "2627241149"; 
 
+audio.src= `https://api.injahow.cn/meting/?type=url&id=${MusicId}`;
 audio.volume = 0.5;
 
 // 获取歌词数据
 async function fetchLyrics() {
     try {
-        const response = await fetch('https://apis.netstart.cn/music//lyric?id=2619968667');
+        const response = await fetch(`https://apis.netstart.cn/music/lyric?id=${MusicId}`);
         const data = await response.json();
         parseLyrics(data.lrc.lyric);
     } catch (error) {
@@ -51,18 +53,20 @@ function updateLyrics() {
     
     const currentTime = audio.currentTime;
     let currentLyric = "";
+    let found = false;
     
     // 找到当前应该显示的歌词
     for (let i = 0; i < lyricsData.length; i++) {
         if (currentTime >= lyricsData[i].time) {
             currentLyric = lyricsData[i].text;
-        } else {
+            found = true;
+        } else if (found) {
             break;
         }
     }
     
-    // 只有当歌词变化且不为空时才触发弹出效果
-    if (currentLyric && currentLyric !== lastLyric) {
+    // 只有当歌词变化时才触发更新
+    if (currentLyric !== lastLyric) {
         lastLyric = currentLyric;
         showPlaybackStatus("♪ 正在播放 ♪", currentLyric);
     }
@@ -74,6 +78,7 @@ function showPlaybackStatus(message, lyric = "") {
     const lyricText = document.getElementById('lyric-text');
     
     statusText.textContent = message;
+    statusText.style.color = 'black';
     lyricText.textContent = lyric;
     
     clearTimeout(hideTimeout);
@@ -86,34 +91,40 @@ function showPlaybackStatus(message, lyric = "") {
     }, 2000);
 }
 
-// 菜单项动画
-function cloneAndAnimate(event, index) {
-    selectMenuItem(index);
-    
-    const btn = event.target;
-    const clone = btn.cloneNode(true);
-    
-    const rect = btn.getBoundingClientRect();
-    const centerX = window.innerWidth/2 - rect.width/2;
-    const centerY = window.innerHeight/2 - rect.height/2;
-    
-    clone.style.position = 'fixed';
-    clone.style.left = `${rect.left}px`;
-    clone.style.top = `${rect.top}px`;
-    clone.className = 'menu-item-clone';
-    
-    document.body.appendChild(clone);
-
-    setTimeout(() => {
-        clone.style.transform = `translate(${centerX - rect.left}px, ${centerY - rect.top}px) scale(3)`;
-        clone.style.filter = 'blur(10px)';
-        clone.style.opacity = '0';
-    }, 10);
-
-    setTimeout(() => {
-        clone.remove();
-    }, 800);
+// 播放/暂停控制
+function togglePlayPause() {
+    if (audio.paused) {
+        audio.play();
+        audioControl.classList.add('playing');
+        audioControl.classList.remove('paused');
+        showPlaybackStatus('♪ 正在播放 ♪');
+        
+        if (lyricsData.length === 0) {
+            fetchLyrics();
+        }
+    } else {
+        audio.pause();
+        audioControl.classList.remove('playing');
+        audioControl.classList.add('paused');
+        showPlaybackStatus('已暂停');
+        lastLyric = "";
+    }
 }
+
+// 音量控制
+function adjustVolume(value) {
+    audio.volume = value;
+}
+
+// 初始化音频事件监听
+audio.addEventListener('timeupdate', updateLyrics);
+
+// 修改菜单项点击事件绑定方式
+document.querySelectorAll('.menu-item').forEach((item, index) => {
+    item.addEventListener('click', () => {
+        selectMenuItem(index);
+    });
+});
 
 // 选择菜单项
 function selectMenuItem(index) {
@@ -128,145 +139,4 @@ function selectMenuItem(index) {
         optionSound.currentTime = 0;
         optionSound.play();
     }
-}
-
-// 播放/暂停控制
-function togglePlayPause() {
-    if (audio.paused) {
-        audio.play();
-        audioControl.classList.add('playing');
-        audioControl.classList.remove('paused');
-        audioControl.style.animationPlayState = 'running';
-        showPlaybackStatus('♪ 正在播放 ♪');
-        
-        if (lyricsData.length === 0) {
-            fetchLyrics();
-        }
-    } else {
-        audio.pause();
-        audioControl.classList.remove('playing');
-        audioControl.classList.add('paused');
-        audioControl.style.animationPlayState = 'paused';
-        showPlaybackStatus('已暂停');
-        lastLyric = "";
-    }
-}
-
-// 音量控制
-function adjustVolume(value) {
-    audio.volume = value;
-}
-
-// 小工具相关功能
-const toolData = [
-    {
-        id: "numconvert",
-        title: "数字转换器",
-        description: "阿拉伯数字与罗马数字相互转换",
-        url: "numconvert.html"
-    },
-    {
-        id: "colorpicker",
-        title: "颜色选择器",
-        description: "RGB/HEX颜色代码转换",
-        url: "colorpicker.html"
-    },
-    {
-        id: "minesweeper",
-        title: "扫雷",
-        description: "简单版，10*10方格10个雷",
-        url: "minesweeper.html"
-    },
-    {
-        id: "titlegenerator",
-        title: "称号生成器",
-        description: "奇葩搞笑的称号，230个",
-        url: "titlegenerator.html"
-    }
-];
-
-// 初始化工具列表
-function initTools() {
-    const container = document.getElementById('tools-container');
-    
-    toolData.forEach(tool => {
-        const card = document.createElement('div');
-        card.className = 'tool-card';
-        card.dataset.toolId = tool.id;
-
-        card.innerHTML = `
-            <div class="tool-title">${tool.title}</div>
-            <div class="tool-description">${tool.description}</div>
-            <div class="tool-link">点击使用 →</div>
-        `;
-
-        card.addEventListener('click', () => loadTool(tool));
-        container.appendChild(card);
-    });
-}
-
-// 加载工具到iframe
-function loadTool(tool) {
-    const iframeContainer = document.getElementById('iframe-container');
-    const toolIframe = document.getElementById('tool-iframe');
-    const iframeTitle = document.getElementById('iframe-title');
-    
-    // 更新标题
-    iframeTitle.textContent = tool.title;
-    
-    // 显示iframe容器
-    document.getElementById('tools-container').style.display = 'none';
-    iframeContainer.classList.add('active');
-    
-    // 设置iframe源
-    toolIframe.src = tool.url;
-}
-
-// 返回工具列表
-function backToTools() {
-    document.getElementById('iframe-container').classList.remove('active');
-    document.getElementById('tools-container').style.display = 'grid';
-    document.getElementById('tool-iframe').src = 'about:blank';
-}
-
-// 事件监听
-document.getElementById('back-button').addEventListener('click', backToTools);
-
-// 页面初始化
-document.addEventListener('DOMContentLoaded', () => {
-    initMobileMenu();
-    audio.addEventListener('timeupdate', updateLyrics);
-    initTools();
-});
-
-function initMobileMenu() {
-    const menu = document.querySelector('.menu');
-    const menuToggle = document.getElementById('menu-toggle');
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-    if (isMobile) {
-        menu.classList.remove('desktop-menu');
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); // 阻止事件冒泡
-            menu.classList.toggle('active');
-        });
-        
-        document.addEventListener('click', () => {
-            menu.classList.remove('active');
-        });
-    } else {
-        menu.classList.add('desktop-menu');
-    }
-    
-    // 窗口大小改变时重新检测
-    window.addEventListener('resize', () => {
-        if (window.matchMedia("(max-width: 768px)").matches) {
-            menu.classList.remove('desktop-menu');
-            menuToggle.style.display = 'flex';
-        } else {
-            menu.classList.add('desktop-menu');
-            menuToggle.style.display = 'none';
-            menu.classList.remove('active');
-        }
-    });
 }

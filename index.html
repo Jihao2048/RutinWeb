@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button class="menu-toggle" id="menu-toggle">☰</button>
     <div class="menu">
-        <button class="menu-item" onclick="cloneAndAnimate(event, 0)">首页</button>
-        <button class="menu-item" onclick="cloneAndAnimate(event, 1)">小工具</button>
-        <button class="menu-item" onclick="cloneAndAnimate(event, 2)"></button>
+        <button class="menu-item" onclick="selectMenuItem(0)">首页</button>
+        <button class="menu-item" onclick="selectMenuItem(1); window.open('tools.html', '_blank')">工具</button>
+        <button class="menu-item" onclick="selectMenuItem(2)">网址大全</button>
+        <button class="menu-item" onclick="selectMenuItem(3)">关于</button>
         <div class="audio-control-container">
             <div class="audio-control" id="audio-control" onclick="togglePlayPause()">
                 <div class="inner-circle" id="inner-circle"></div>
@@ -24,24 +24,33 @@
         </div>
     </div>
     <div class="content">
-        <div id="home-content" class="content-item"></div>
-        <div id="content-1" class="content-item">
-            <div class="tools-container" id="tools-container"></div>
-            <div id="iframe-container" class="iframe-container">
-                <div class="iframe-header">
-                    <button id="back-button" class="back-button">← 返回</button>
-                    <span id="iframe-title" class="iframe-title"></span>
-                    <span id="security-badge" class="security-badge" title="此工具在安全沙箱中运行">🔒</span>
-                </div>
-                <div id="iframe-wrapper" class="iframe-wrapper">
-                    <iframe id="tool-iframe" sandbox="allow-scripts allow-same-origin" class="tool-iframe"></iframe>
-                </div>
-            </div>
+        <div id="home-content" class="content-item">
+            <form action="https://cn.bing.com/search" method="get" target="_blank" class="bing-search">
+                <input type="text" name="q" placeholder="必应搜索..." class="search-input">
+                <button type="submit" class="search-button">搜索</button>
+            </form>
         </div>
-        <div id="content-2" class="content-item"></div>
+        <div id="tools-content" class="content-item">
+            <h2>如果没有跳转，请点击<a href="tools.html" target="_blank" class="tools-link">这里</a></h2>
+        </div>
+        <div id="links-content" class="content-item">
+            <iframe src="links.html"></iframe>
+        </div>
+        <div id="about-content" class="content-item">
+            <div class="image-container">
+                <img src="about.png" alt="关于" class="about-image">
+            </div>
+            <h1>关于 RutinWeb</h1>
+            <p>欢迎来到<a href="https://v.douyin.com/OI-cAGtfgMA/" target="_blank">鸡好</a>的网站！</p>
+            <p>我的想法是做出自己的第一个网站。完美的作品。</p>
+            <p>鸣谢 <a href="https://v.douyin.com/eDvF5aJ12cM/" target="_blank">@依一</a> 的帮助，提供了关于页面的设计建议。</p>
+        </div>
     </div>
-    <audio id="bgm" src="https://api.injahow.cn/meting/?type=url&id=2619968667"></audio>
-    <audio id="option-sound" src="s.wav"></audio>
+    <audio id="bgm"></audio>
+    <audio id="option-sound" src="sound.wav"></audio>
     <script src="script.js"></script>
 </body>
 </html>
+<script>
+    selectMenuItem(0); // 默认选中首页
+</script>

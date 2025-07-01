@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小游戏小工具</title>
+    <link rel="stylesheet" href="styles.css">
+    <audio id="clickSound" src="s.wav" preload="auto"></audio>
+</head>
+<body>
+    <div class="menu">
+        <!-- 工具分类 -->
+        <div class="category-title">实用工具</div>
+        <button class="menu-item tool" data-target="color-picker">
+            颜色选择器
+        </button>
+        <button class="menu-item tool" data-target="roman-converter">
+            罗马数字转换器
+        </button>
+        
+        <!-- 游戏分类 -->
+        <div class="category-title">休闲游戏</div>
+        <button class="menu-item game" data-target="minesweeper">
+            扫雷游戏
+        </button>
+        <button class="menu-item game" data-target="title-generator">
+            称号生成器
+        </button>
+        <!-- 添加关闭标签页按钮 -->
+        <button class="menu-item close-tab-btn" onclick="window.close()">
+            ↩ 返回
+        </button>
+    </div>
+
+    <div class="content">
+        <!-- 颜色选择器内容 -->
+        <div class="content-item" id="color-picker">
+            <iframe src="colorpicker.html"></iframe>
+        </div>
+        
+        <!-- 罗马数字转换器内容 -->
+        <div class="content-item" id="roman-converter">
+            <iframe src="numconvert.html"></iframe>
+        </div>
+        
+        <!-- 扫雷游戏内容 -->
+        <div class="content-item" id="minesweeper">
+            <iframe src="minesweeper.html"></iframe>
+        </div>
+        
+        <!-- 称号生成器内容 -->
+        <div class="content-item" id="title-generator">
+            <iframe src="titlegenerator.html"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // 简单的交互逻辑
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 播放点击音效
+                const clickSound = document.getElementById('clickSound');
+                clickSound.currentTime = 0; // 重置播放位置
+                clickSound.play();
+                
+                // 移除所有选中状态
+                document.querySelectorAll('.menu-item').forEach(i => {
+                    i.classList.remove('selected');
+                });
+                
+                // 添加当前选中状态
+                this.classList.add('selected');
+                
+                // 隐藏所有内容
+                document.querySelectorAll('.content-item').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // 显示对应内容
+                const target = this.getAttribute('data-target');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
