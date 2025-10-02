@@ -211,4 +211,5 @@ body {
   .menu { width: auto; }
   .menu.active { transform: translateX(-100%); }
   .title-image, .audio-control { display: none; }
+  .content { height: 100%; }
 }
