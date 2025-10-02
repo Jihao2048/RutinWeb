@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <title>RutinWeb</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="mobile-menu-btn">☰</div>
     <div class="menu">
-        <button class="menu-item" onclick="selectMenuItem(0)">首页</button>
-        <button class="menu-item" onclick="selectMenuItem(1); window.open('tools.html', '_blank')">工具</button>
-        <button class="menu-item" onclick="selectMenuItem(2)">网址大全</button>
-        <button class="menu-item" onclick="selectMenuItem(3)">关于</button>
+        <div class="image-container">
+            <img src="about.png" alt="关于" class="title-image">
+        </div>
+        <button class="menu-item" onclick="selectMenuItem(0)">图片展馆</button>
+        <button class="menu-item" onclick="selectMenuItem(1)">依一的工具</button>
+        <button class="menu-item" onclick="selectMenuItem(2)">关于</button>
         <div class="audio-control-container">
             <div class="audio-control" id="audio-control" onclick="togglePlayPause()">
                 <div class="inner-circle" id="inner-circle"></div>
             </div>
-            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.2" oninput="adjustVolume(this.value)">
             <div class="playback-status" id="playback-status">
                 <div class="status-text" id="status-text"></div>
                 <div class="lyric-text" id="lyric-text"></div>
@@ -24,33 +27,22 @@
         </div>
     </div>
     <div class="content">
-        <div id="home-content" class="content-item">
-            <form action="https://cn.bing.com/search" method="get" target="_blank" class="bing-search">
-                <input type="text" name="q" placeholder="必应搜索..." class="search-input">
-                <button type="submit" class="search-button">搜索</button>
-            </form>
+        <div id="gallery-content" class="content-item">
+            <iframe src="gallery.html"></iframe>
         </div>
-        <div id="tools-content" class="content-item">
-            <h2>如果没有跳转，请点击<a href="tools.html" target="_blank" class="tools-link">这里</a></h2>
-        </div>
-        <div id="links-content" class="content-item">
-            <iframe src="links.html"></iframe>
+        <div id="mclvlc-content" class="content-item">
+            <iframe src="https://www.mclvlc.icu/"></iframe>
         </div>
         <div id="about-content" class="content-item">
-            <div class="image-container">
-                <img src="about.png" alt="关于" class="about-image">
-            </div>
             <h1>关于 RutinWeb</h1>
             <p>欢迎来到<a href="https://v.douyin.com/OI-cAGtfgMA/" target="_blank">鸡好</a>的网站！</p>
-            <p>我的想法是做出自己的第一个网站。完美的作品。</p>
             <p>鸣谢 <a href="https://v.douyin.com/eDvF5aJ12cM/" target="_blank">@依一</a> 的帮助，提供了关于页面的设计建议。</p>
+            <p>点击菜单栏图片6次有你妈的惊喜！</p>
         </div>
     </div>
     <audio id="bgm"></audio>
     <audio id="option-sound" src="sound.wav"></audio>
     <script src="script.js"></script>
+    <script src="dat.js"></script>
 </body>
 </html>
-<script>
-    selectMenuItem(0); // 默认选中首页
-</script>

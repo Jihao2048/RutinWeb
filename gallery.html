@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片展示</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <div class="gallery-container">
+        <div class="gallery" id="dynamicGallery"></div>
+    </div>
+    
+    <script src="dat.js"></script>
+    <script>
+    // 修改数据引用为photodata
+    window.addEventListener('DOMContentLoaded', () => {
+        initGallery(photodata);
+        // 新增倾斜效果代码
+        document.querySelectorAll('.gallery img').forEach(img => {
+            img.addEventListener('mousemove', (e) => {
+                const rect = img.getBoundingClientRect();
+                const xRatio = (e.clientX - rect.left) / rect.width;
+                const yRatio = (e.clientY - rect.top) / rect.height;
+                
+                const rotateY = (xRatio - 0.5) * 20; // X轴倾斜±10°
+                const rotateX = (0.5 - yRatio) * 15;  // Y轴倾斜±7.5°
+                
+                img.style.transform = `
+                    perspective(1200px)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                    translateZ(20px)
+                `;
+            });
+        
+            img.addEventListener('mouseleave', () => {
+                img.style.transform = 'none';
+            });
+        });
+    });
+    
+    function initGallery(dataSource) {
+        const container = document.getElementById('dynamicGallery');
+        container.innerHTML = dataSource.map(item => `
+            <div class="img-card">
+                <img src="${item.url}" alt="${item.tag}">
+                <div class="meta-overlay">
+                    <p>Shot with ${item.shotwith}</p>
+                    <p>Shot on ${item.date}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+    </script>
+</body>
+</html>
