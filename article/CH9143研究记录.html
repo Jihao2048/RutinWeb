@@ -1,0 +1,50 @@
+    <h1>CH9143研究记录</h1>
+    <p>CH9143是沁恒微电子公司生产的一款BLE/UART/USB 三通芯片，实现蓝牙、USB 接口和串口接口之间数据互传。蓝牙支持主机模式、从机模式和主从一体模式，从机模式和主从一体下可对蓝牙通讯以及参数进行配置，支持BLE4.2。串口支持AT 指令配置，支持MODEM 联络信号，最高波特率1Mbps。同时可实现计算机USB 接口、串口和蓝牙之间联机调试或数据监控。</p>
+    <a href="https://www.wch.cn/products/CH9143.html" target="_blank">沁恒微电子官方网页CH9143</a>
+    <a href="https://www.wch.cn/downloads/BleComWin_ZIP.html" target="_blank">沁恒微电子官方下载BleComWin软件</a>
+    <p>软件使用说明：需要多次启动软件才能正常运行，软件作用为将芯片的蓝牙串口转换成COM端口。</p>   
+    <p>这款由<a href="https://github.com/WeActStudio/WeActStudio.CH9143_BLE2USB2UART" target="_blank" style="white-space: nowrap; font-weight: bold; font-size: 30px; background: linear-gradient(to right,#FFD700, #FFA500 ); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none;">WeAct Studio</a>制作的CH9143模块，外观非常精致，采用沉金工艺，黑色PCB，尺寸为31.98mm*22mm，附带一个标注引脚名称的小亚克力板与两颗螺丝，详情见图:</p>
+    <img src="resource/IMG_3337.JPG" style="width: 80%;">
+    <h2>总结</h2>
+    <img src="resource/IMG_3346.JPG" style="width: 30%;@media (max-width: 768px) { width: 100%; }">
+    <p>图片展示了模块的AT模式的启用和主从的拨码开关切换方式。</p>
+    <p>该芯片的MTU大小为80字节，可用部分为77字节，超过将分开发送。</p>
+    <p>用iPhone上的Light Blue软件，通过低功耗蓝牙连接这个模块，需要自行选择服务UUID才能传输数据。</p>
+    <p>FFF0是两台模块之间的保留服务UUID，无法选择，FFF1有通知及读取功能，FFF2只有写入功能，FFF3则包含所有功能。</p>
+    <p>三通芯片顾名思义，一端进另外两端同时出。</p>
+    <h3>RELOAD 按键</h3>
+    <p>恢复出厂设置按键，上电前RELOAD按键按住，3 秒后松开，即可恢复出厂设置，此过程指示灯不会点亮。</p>
+    <ul>
+    <li>两个板子需要配对时，建议将其中一块板子通过<code>AT/BLEMODE 拨码</code>固定为从机模式，当需要解除配对，只需恢复主机即可。</li>
+    <li>当两块板子均处于主从一体模式，需要解除配对时，无法分辨板子是哪个板子是主机，哪个板子是从机，故两块板子都要恢复出厂设置。实际如果知道谁是主机，只需恢复主机即可。</li>
+    </ul>
+    <h3>蓝色指示灯</h3>
+    <table>
+    <tr><th>序号</th><th>状态</th><th>说明</th></tr>
+    <tr><td>1</td><td>上电后单次快闪 3 下</td><td>当前处于从机模式</td></tr>
+    <tr><td>2</td><td>上电后双次快闪 3 下</td><td>当前处于主从一体模式</td></tr>
+    <tr><td>3</td><td>500ms 间隔慢闪</td><td>当前处于广播状态</td></tr>
+    <tr><td>4</td><td>常亮</td><td>当前处于连接状态</td></tr>
+    <tr><td>5</td><td>连接状态快闪</td><td>当前正在数据传输</td></tr>
+    <tr><td>6</td><td>配对过程中快闪</td><td>已与其他设备建立配对，需重新上电完成配对</td></tr>
+    </table>
+    <h2>第一次发送</h2>
+    <p>将模块插入电脑，使用putty打开串口，波特率任意，此时电脑是有线连接，而不是蓝牙连接。</p>
+    <p>在手机端发送了“好”字的UTF8十六进制编码，瞬间就在putty中看到了“好”字。</p>
+    <img src="resource\屏幕截图 2026-06-12 211437.png" style="width: 80%;">
+    <p>在putty中复制了两句话，发送后手机上显示了。</p>
+    <img src="resource\IMG_3339.PNG" style="width: 80%;">
+    <p>这种整天喵喵叫的真的是没救了喵！这种的治好了也流口水喵！没救了喵！没救了喵！就喵！就喵！就喵！就喵！有本事捅死我喵！有本事捅死我喵！有本事捅死我喵！你说话带喵？好可爱喵！好可爱喵！我喜欢你喵！我喜欢你喵！结婚喵！做我老婆喵！不要再动了喵！受不了了喵！什么，在里面？不能在里面喵！肚子胀胀的喵！要死了喵！</p>
+    <p>正点原子技术论坛：开源电子网:<a href="https://www.openedv.com/" target="_blank">www.openedv.com</a></p>
+    <img src="resource\IMG_3340.PNG" style="width: 80%;">
+    <h2>第二次尝试</h2>
+    <p>只插在电脑上，不在手机上连蓝牙，将模块连接51单片机，打开AiCubeISP软件，选择正确端口，尝试烧录。</p>
+    <p>单片机烧录成功，51单片机连接的OLED屏幕亮起预料之中的“咕咕嘎嘎”，说明模块可以不使用蓝牙功能。(开启从模式时)</p>
+    <img src="resource\IMG_2908.JPG" style="width: 80%">
+    <p>接着，我尝试了烧录ESP32，结果始终提示“No serial data received”，因为我没有连接dtr和rts引脚。</p>
+    <p>这款模块引出了dtr和rts引脚，需要焊接排针或跳线连接到ESP32的EN和GPIO0/9引脚。</p>
+    <p>于是我尝试手动进入boot模式，烧录成功，烧录速度极慢。程序顺利运行。后用芯片工具读取了ESP32的各项参数，正常读取。</p>
+    <img src="resource\屏幕截图 2026-06-14 130435.png" style="width: 80%">
+    <img src="resource\屏幕截图 2026-06-14 130522.png" style="width: 80%">
+    <img src="resource\IMG_3351.JPG" style="width: 80%;">
+    <p></p>

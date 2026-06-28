@@ -1,0 +1,53 @@
+    <h1>STM32 USB口启用方法</h1>
+    <p>今天看到个视频<br>用STM32的USB口插入电脑<br>但是电脑显示描述符请求失败</p>
+    <h2>这个问题我也遇到过</h2>
+    <h1>解决方法</h1>
+    <p>先不要用自带的USB口，用快递里面附赠的STLink连接STM32</p>
+    <p>如果会用的话，知道怎么烧录程序的话，就不要看这一段了。</p>
+    <br>
+    <p>就是那个铁壳的，长得像U盘一样的</p>
+    <img src="resource/stlink.png" style="width: 100%;">
+    <p>一般快递盒里面还有四根线，用这四根线把STM和STLink连起来</p>
+    <p>3V3连接到STM32的3V3</p>
+    <p>GND连接到STM32的GND</p>
+    <p>SWDIO连接到STM32的SWO</p>
+    <p>SWCLK连接到STM32的SWCLK</p>
+    <img src="resource/IMG_3106.JPG" style="width: 100%;">
+    <p>我这个STLink是高级一点的，和上一个图片里的不同。</p>
+    <p>连接好后，把STLink插到电脑上。</p>
+    <h1>会用的跳过到这里</h1>
+    <br>
+    <h1>请根据你的编程方式选择教程</h1>
+    <br>
+    <h2>Arduino IDE</h2>
+    <p>如图，这是一个简单串口程序</p>
+    <img src="resource/135521.png" style="width: 100%;">
+    <p>没有设置任何参数，直接上传，我们就获得了“描述符请求失败”</p>
+    <img src="resource/135706.png" style="width: 100%;">
+    <p>现在，我们点击Arduino IDE左上角的“工具”菜单</p>
+    <img src="resource/140139.png" style="width: 100%;">
+    <img src="resource/140259.png" style="width: 100%;">
+    <p>看到了吗？点击这里面的“USB support (if available)”</p>
+    <p>选择里面的“CDC (generic 'Serial' supersede U(S)ART)”</p>
+    <img src="resource/140512.png" style="width: 100%;">
+    <p>现在，我们点击“上传”按钮，就成功启用USB口了</p>
+    <img src="resource/141150.png" style="width: 100%;">
+    <br>
+    <h1>STM32CubeMX&Keil 礦ision</h1>
+    <p>我相信，能用这个软件的也算是高级一点的程序员了</p>
+    <p>我就不详细讲了</p>
+    <p>创建新项目，选择你的STM32型号</p>
+    <p>把那些时钟什么的，还有你需要的，都配置好</p>
+    <a href="https://blog.csdn.net/qq_49053936/article/details/142363059" target="_blank" style="font-size: 20px;">可以参考这个教程</a>
+    <p>这里借用这个教程的图片</p>
+    <p>进入MX Cube的配置页面后，养成习惯，优先设置调试模式：Serial Wire。</p>
+    <img src="resource/mx1.png" style="width: 100%;">
+    <p>外部高速晶振源(HSE)：Crystal/Ceramic Resonator</p>
+    <img src="resource/mx2.png" style="width: 100%;">
+    <p>USB_OTG_FS：选择 Device_Only;  设备模式(从机模式);   其它参数，默认。</p>
+    <p>有些芯片型号，如F103系列，CubeMX上的显示是：USB_FS，配置步骤是一样的。</p>
+    <img src="resource/mx3.png" style="width: 100%;">
+    <p>USB_DEVICE：选择 CDC (VPC)；  其它参数，默认。</p>
+    <img src="resource/mx4.png" style="width: 100%;">
+    <p>当启用USB功能后，进入时钟配置页面时，弹窗： 是否自动配置系统时钟?  选择：No 。</p>
+    <img src="resource/mx5.png" style="width: 100%;">
