@@ -1,3 +1,4 @@
+//ALL RIGHTS RESERVED 保留所有权利 未经允许不得复制、修改、分发或销售本软件的副本
 if (document.referrer.includes('jihao.icu')) {
     alert('记住新的域名！');
 }
