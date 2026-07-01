@@ -15,10 +15,16 @@ const surprise = [
 
 const articles = [
     {
+        id: 'wt8-driver',
+        title: '东芝WT8平板驱动',
+        file: 'article/东芝WT8平板驱动.html',
+        date: '「New」2026-06-25'
+    },
+    {
         id: 'ch9143',
         title: '沁恒微电子CH9143研究记录',
         file: 'article/CH9143%E7%A0%94%E7%A9%B6%E8%AE%B0%E5%BD%95.html',
-        date: '「New」2026-06-14'
+        date: '2026-06-14'
     },
     {
         id: 'windows32-usable',
@@ -60,12 +66,6 @@ const articles = [
         id: 'windows-vista-usable',
         title: 'Windows Vista可以用的东西',
         file: 'article/Windows%20Vista%E5%8F%AF%E4%BB%A5%E7%94%A8%E7%9A%84%E4%B8%9C%E8%A5%BF.html',
-        date: '2026-03-03'
-    },
-    {
-        id: 'wt8-driver',
-        title: '东芝WT8平板驱动',
-        file: 'article/东芝WT8平板驱动.html',
         date: '2026-03-03'
     },
 ];

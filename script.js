@@ -81,7 +81,7 @@ function showPlaybackStatus(message, lyric = "") {
     
     hideTimeout = setTimeout(() => {
         playbackStatus.classList.remove('show');
-    }, 5000);
+    }, 1500);
 }
 
 function togglePlayPause() {
@@ -401,5 +401,5 @@ const contentData = [
     }
 ];
 
-const MusicId = "209643";
-//https://music.163.com/song?id=209643&uct2=U2FsdGVkX19SCrZQuwq6MnUsdFHnlEFpdysPnWgmtnE=
+const MusicId = "3384765364";
+//https://music.163.com/song?id=3384765364&uct2=U2FsdGVkX193WSfNkUCFrEBER5xpC8sNPVMdR+0Dd2E=
