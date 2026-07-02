@@ -313,7 +313,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const articleName = urlParams.get('name');
     const aboutParam = urlParams.get('about');
     
-    if (aboutParam) {
+    var bgHeader = document.querySelector('.bg-header');
+    if (bgHeader) {
+        bgHeader.style.backgroundImage = "url('https://bing.img.run/rand_1366x768.php?t=" + Date.now() + "')";
+    }
+    
+    if (aboutParam === 'true') {
         selectMenuItem(1);
     } else if (articleName) {
         const article = articles.find(a => a.id === articleName);
@@ -339,19 +344,14 @@ function 关闭背景图() {
 function 黑字() {
     document.documentElement.style.setProperty('--text-primary', '#000');
     document.documentElement.style.setProperty('--text-secondary', '#666');
-
-    let style = document.getElementById('黑字-style');
-    if (!style) {
-        style = document.createElement('style');
-        style.id = '黑字-style';
-        document.head.appendChild(style);
-    }
-    style.textContent = `
-        h2, h3, ul, table { color: #000; }
-        .article-content b { color: #333; }
-        .playback-status { color: #000; }
-        .lyric-text { color: #000; }
-    `;
+}
+function 荆南麦圆体() {
+    document.documentElement.style.setProperty('--main-font', '荆南麦圆体, sans-serif');
+    var fontStyle = document.createElement('style');
+    document.head.appendChild(fontStyle);
+}
+function 谷歌字() {
+    document.documentElement.style.setProperty('--main-font', "'Google Sans', 'Roboto', sans-serif");
 }
 
 //内容区域
@@ -401,4 +401,4 @@ const contentData = [
     }
 ];
 
-const MusicId = "29793426";
+const MusicId = "1493333482";

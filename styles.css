@@ -1,16 +1,25 @@
 /* ALL RIGHTS RESERVED 保留所有权利 未经允许不得复制、修改、分发或销售本软件的副本 */
-
+@font-face {
+  font-family: '荆南俊俊体';
+  src: url('荆南俊俊.ttf') format('truetype');
+}
+@font-face {
+  font-family: '荆南麦圆体';
+  src: url('荆南麦圆.ttf') format('truetype');      
+}
 :root {
-  --main-font: 'Google Sans', 'Roboto', sans-serif;
+  --main-font: '荆南俊俊体', 'Roboto', sans-serif;
   --primary-bg: #f9f9f9;
   --card-bg: rgba(255, 255, 255, 0.1);
   --accent-color: #2196F3;
   --text-primary: #fff;
-  --text-secondary: #fff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
   --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
   --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.15);
   --border-radius: 20px;
-  --transition: all 0.3s ease;
+  --transition: all 1.5s cubic-bezier(0.5, 0, 0, 1);
+  --fast-transition: all 0.5s cubic-bezier(0.5, 0, 0, 1);
+  --border: rgba(255, 255, 255, 0.2);
 }
 
 * {
@@ -18,7 +27,7 @@
 }
 
 h2, h3, ul, table {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 body {
@@ -48,9 +57,10 @@ body {
   position: fixed;
   border-radius: var(--border-radius);
   margin: 20px;
-  box-shadow: var(--shadow-heavy);
+  box-shadow: var(--shadow-light);
   backdrop-filter: blur(10px);
-  z-index: 3;
+  border: 1px solid var(--border);
+  z-index: 10;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -66,7 +76,7 @@ body {
   left: 20px;
   top: 140px;
   background-color: rgba(255, 0, 0, 0.5);
-  color: white;
+  color: var(--text-primary);
   border: none;
   border-radius: var(--border-radius);
   padding: 10px 15px;
@@ -96,7 +106,6 @@ body {
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.7;
   z-index: -1;
   border-radius: var(--border-radius);
 }
@@ -110,8 +119,8 @@ body {
   margin: 5px;
   font-size: 16px;
   cursor: pointer;
-  border: none;
-  transition: var(--transition);
+  border: 1px solid var(--border);
+  transition: var(--fast-transition);
   box-shadow: var(--shadow-light);
   backdrop-filter: blur(5px);
 }
@@ -212,10 +221,10 @@ body {
   border-radius: var(--border-radius);
   padding: 20px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--fast-transition);
   box-shadow: var(--shadow-light);
   backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: var(--border);
 }
 
 .article-item:hover {
@@ -286,7 +295,7 @@ body {
 }
 
 .article-content b {
-  color: #fff;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -340,14 +349,15 @@ iframe {
   text-align: left;
   position: absolute;
   left: 50%;
+  z-index: 50;
   white-space: nowrap;
   opacity: 0;
   width: auto;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--card-bg);
   padding: 10px;
   border-radius: var(--border-radius);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 1s ease, opacity 1s ease;
+  transition: var(--transition);
 }
 
 .playback-status.show {
@@ -358,7 +368,7 @@ iframe {
 .lyric-text {
   text-align: left;
   font-size: 16px;
-  color: #fff;
+  color: var(--text-primary);
   white-space: nowrap;
   max-height: 25px;
   overflow: hidden;
@@ -386,7 +396,7 @@ iframe {
   width: 40px;
   height: 40px;
   background: rgba(255,255,255,0.3);
-  border-radius: 40%;
+  border-radius: var(--border-radius);
   text-align: center;
   line-height: 43px;
   font-size: 20px;
@@ -415,7 +425,7 @@ iframe {
   border-radius: var(--border-radius);
   color: var(--text-primary);
   text-decoration: none;
-  transition: var(--transition);
+  transition: var(--fast-transition);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -438,9 +448,9 @@ iframe {
   border-radius: var(--border-radius);
   padding: 20px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--fast-transition);
   box-shadow: var(--shadow-light);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: var(--border);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -551,9 +561,9 @@ iframe {
   border-radius: var(--border-radius);
   padding: 20px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--fast-transition);
   box-shadow: var(--shadow-light);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: var(--border);
   text-decoration: none;
   display: block;
   color: var(--text-primary);
