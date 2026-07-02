@@ -12,6 +12,9 @@ const optionSound = document.getElementById('option-sound');
 let lyricsData = [];
 let lastLyric = "";
 let hideTimeout = null;
+let noTimelineLyrics = false;
+let noTimelineInterval = null;
+let noTimelineIndex = 0;
 
 // 导航状态管理
 let currentView = 'main'; 
@@ -30,7 +33,8 @@ async function fetchLyrics(retryCount = 3) {
         if (!response.ok) throw new Error('网络响应异常');
         const data = await response.json();
         if (data.lrc && data.lrc.lyric) {
-            parseLyrics(data.lrc.lyric);
+            parseLyrics(data.lrc.lyric, data.pureMusic);
+            if (noTimelineLyrics && !audio.paused) startNoTimelineLyrics();
         }
     } catch (error) {
         console.error('获取歌词失败:', error);
@@ -38,20 +42,45 @@ async function fetchLyrics(retryCount = 3) {
     }
 }
 
-function parseLyrics(lrcText) {
+function parseLyrics(lrcText, pureMusic = false) {
     const lines = lrcText.split('\n');
-    lyricsData = lines.map(line => {
+    lyricsData = [];
+    let hasTimeTags = false;
+
+    for (const line of lines) {
         const timeMatch = line.match(/\[(\d+):(\d+)\.(\d+)\]/);
-        if (!timeMatch) return null;
-        const time = parseInt(timeMatch[1]) * 60 + parseInt(timeMatch[2]) + parseInt(timeMatch[3]) / 1000;
-        const text = line.replace(/\[\d+:\d+\.\d+\]/g, '').trim();
-        return text ? { time, text } : null;
-    }).filter(item => item !== null).sort((a, b) => a.time - b.time);
+        if (timeMatch) {
+            hasTimeTags = true;
+            const time = parseInt(timeMatch[1]) * 60 + parseInt(timeMatch[2]) + parseInt(timeMatch[3]) / 1000;
+            const text = line.replace(/\[\d+:\d+\.\d+\]/g, '').trim();
+            if (text) lyricsData.push({ time, text });
+        }
+    }
+
+    if (!hasTimeTags) {
+        lyricsData = lines
+            .map(line => line.trim())
+            .filter(text => text !== '')
+            .map(text => ({ time: 0, text }));
+        noTimelineLyrics = lyricsData.length > 0;
+    } else {
+        const allZero = lyricsData.length > 0 && lyricsData.every(item => item.time === 0);
+        noTimelineLyrics = allZero;
+        if (!allZero) {
+            lyricsData.sort((a, b) => a.time - b.time);
+        }
+    }
+
+    if (pureMusic && lyricsData.length === 0) {
+        lyricsData = [{ time: 0, text: '纯音乐，请欣赏' }];
+        noTimelineLyrics = true;
+    }
 }
 
 function updateLyrics() {
     if (audio.paused || lyricsData.length === 0) return;
-    
+    if (noTimelineLyrics) return;
+
     const currentTime = audio.currentTime;
     let currentLyric = "";
     
@@ -84,6 +113,31 @@ function showPlaybackStatus(message, lyric = "") {
     }, 2000);
 }
 
+function startNoTimelineLyrics() {
+    stopNoTimelineLyrics();
+    if (lyricsData.length === 0) return;
+    noTimelineIndex = 0;
+    showPlaybackStatus("♪ 正在播放 ♪", lyricsData[0].text);
+    clearTimeout(hideTimeout);
+    noTimelineIndex = 1;
+    noTimelineInterval = setInterval(() => {
+        if (noTimelineIndex >= lyricsData.length) {
+            noTimelineIndex = 0;
+        }
+        showPlaybackStatus("♪ 正在播放 ♪", lyricsData[noTimelineIndex].text);
+        clearTimeout(hideTimeout);
+        noTimelineIndex++;
+    }, 2500);
+}
+
+function stopNoTimelineLyrics() {
+    if (noTimelineInterval) {
+        clearInterval(noTimelineInterval);
+        noTimelineInterval = null;
+    }
+    playbackStatus.classList.remove('show');
+}
+
 function togglePlayPause() {
     playInteractionSound();
 
@@ -106,10 +160,12 @@ function togglePlayPause() {
         audioControl.classList.add('playing');
         audioControl.classList.remove('paused');
         if (lyricsData.length === 0) fetchLyrics();
+        else if (noTimelineLyrics) startNoTimelineLyrics();
     } else {
         audio.pause();
         audioControl.classList.remove('playing');
         audioControl.classList.add('paused');
+        stopNoTimelineLyrics();
         showPlaybackStatus('已暂停');
     }
 }
@@ -284,6 +340,11 @@ function selectMenuItem(index) {
 }
 
 audio.addEventListener('timeupdate', updateLyrics);
+audio.addEventListener('pause', stopNoTimelineLyrics);
+audio.addEventListener('ended', stopNoTimelineLyrics);
+audio.addEventListener('play', () => {
+    if (noTimelineLyrics && lyricsData.length > 0) startNoTimelineLyrics();
+});
 
 const menuBtn = document.querySelector('.menu-button');
 menuBtn.addEventListener('click', (e) => {
@@ -401,4 +462,4 @@ const contentData = [
     }
 ];
 
-const MusicId = "1493333482";
+const MusicId = "2040292639";
