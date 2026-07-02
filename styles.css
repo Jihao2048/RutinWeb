@@ -335,13 +335,51 @@ iframe {
 }
 
 .audio-control::before {
-  content: "▶";
-  color: var(--text-primary);
-  font-size: 30px;
+  content: "";
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-color: var(--text-primary);
+  mask-image: url("play.svg");
+  -webkit-mask-image: url("play.svg");
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
 }
 
-.audio-control.playing::before { content: "❚❚"; }
-.audio-control.paused::before { content: "▶"; }
+.audio-control.playing::before {
+  content: "";
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-color: var(--text-primary);
+  mask-image: url("pause.svg");
+  -webkit-mask-image: url("pause.svg");
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+}
+.audio-control.paused::before {
+  content: "";
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-color: var(--text-primary);
+  mask-image: url("play.svg");
+  -webkit-mask-image: url("play.svg");
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+}
 
 .playback-status {
   color: var(--text-primary);
@@ -393,8 +431,8 @@ iframe {
   position: fixed;
   top: 15px;
   left: 15px;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background: rgba(255,255,255,0.3);
   border-radius: var(--border-radius);
   text-align: center;
@@ -593,7 +631,7 @@ iframe {
   }
 
   .title-image { 
-    width: 40px; 
+    width: 50px; 
   }
 
   .content { 
