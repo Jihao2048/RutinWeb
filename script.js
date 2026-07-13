@@ -429,10 +429,7 @@ const contentData = [
                         <h3>联系方式</h3>
                         <a href="https://qm.qq.com/q/q8QHoWWr6g" target="_blank" class="contact-link">点击链接加入鸡好的QQ群聊</a>
                         <br>
-                        <a href="https://space.bilibili.com/2121656213" target="_blank" class="contact-link">哔哩哔哩</a>
-                        <a href="https://v.douyin.com/OI-cAGtfgMA/" target="_blank" class="contact-link">抖音</a>
-                        <a href="https://x.com/IAS1054" target="_blank" class="contact-link">twitter</a>
-                        <a href="https://github.com/Jihao2048" target="_blank" class="contact-link">Github</a>
+                        <h2>本网页开发周期已结束，后续将不再更新，仅更新内容。两年以来坚持，需要依靠兴趣爱好和毅力。</h2>
                         <br>
                         <p>点击菜单栏图标六次有惊喜！</p>
                         <p>&copy; 2026 All Rights Reserved</p>
@@ -462,4 +459,5 @@ const contentData = [
     }
 ];
 
-const MusicId = "2040292639";
+const MusicId = "27203936";
+//https://music.163.com/song?id=27203936&uct2=U2FsdGVkX1/n5HBnY2/rJf0YNv9epNbUxPKgPJTLzWU=
