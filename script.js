@@ -26,7 +26,7 @@ async function fetchLyrics(retryCount = 3) {
     if (!MusicId) return;
     try {
         if (!audio.src) {
-            audio.src = `https://music.163.com/song/media/outer/url?id=${MusicId}.mp3`;
+            audio.src = `https://apic.netstart.cn/music/song/url?id=${MusicId}`;
         }
         const apiUrl = `https://apic.netstart.cn/music/lyric?id=${MusicId}`;
         const response = await fetch(apiUrl);
@@ -143,7 +143,7 @@ function togglePlayPause() {
 
     if (audio.paused) {
         if (!audio.src) {
-            audio.src = `https://music.163.com/song/media/outer/url?id=${MusicId}.mp3`;
+            audio.src = `https://apic.netstart.cn/music/song/url?id=${MusicId}`;
         }
         audio.play().catch(e => {
             console.error("自动播放失败:", e);
@@ -429,7 +429,7 @@ const contentData = [
                         <h3>联系方式</h3>
                         <a href="https://qm.qq.com/q/q8QHoWWr6g" target="_blank" class="contact-link">点击链接加入鸡好的QQ群聊</a>
                         <br>
-                        <h2>本网页开发周期已结束，后续将不再更新，仅更新内容。两年以来坚持，需要依靠兴趣爱好和毅力。</h2>
+                        <h3>本网页开发周期已结束，后续将不再更新，仅更新内容。两年以来坚持，需要依靠兴趣爱好和毅力。</h3>
                         <br>
                         <p>点击菜单栏图标六次有惊喜！</p>
                         <p>&copy; 2026 All Rights Reserved</p>
