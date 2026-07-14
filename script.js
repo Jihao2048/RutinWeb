@@ -425,12 +425,12 @@ const contentData = [
                     <h2>📢 公告</h2>
                     <div class="announcement-content">
                         <p>欢迎来到IAS的个人网站！</p>
-                        <p>曾用网名鸡好，不卖萌不撒娇，每天都会睡觉。</p>
+                        <h3>重磅新网页:</h3>
+                        <p><a href="https://vibe.ias1054.cn" target="_blank">点击这里</a>查看鸡仔的VibeCode展馆，展示如何使用AI生成代码。</p>
                         <h3>联系方式</h3>
                         <a href="https://qm.qq.com/q/q8QHoWWr6g" target="_blank" class="contact-link">点击链接加入鸡好的QQ群聊</a>
                         <br>
-                        <h3>本网页开发周期已结束，后续将不再更新，仅更新内容。两年以来坚持，需要依靠兴趣爱好和毅力。</h3>
-                        <br>
+                        <p>本网页开发周期已结束，后续将不再更新，仅更新内容。两年以来坚持，需要依靠兴趣爱好和毅力。</p>
                         <p>点击菜单栏图标六次有惊喜！</p>
                         <p>&copy; 2026 All Rights Reserved</p>
                     </div>
@@ -459,5 +459,5 @@ const contentData = [
     }
 ];
 
-const MusicId = "2144292913";
-//https://music.163.com/song?id=27203936&uct2=U2FsdGVkX1/n5HBnY2/rJf0YNv9epNbUxPKgPJTLzWU=
+const MusicId = "2686252181";
+//https://music.163.com/song?id=2686252181&uct2=U2FsdGVkX18QhMfz1lAvKKi46OLpOMGnWuuT3obwXuo=

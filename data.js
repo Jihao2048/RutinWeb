@@ -15,10 +15,16 @@ const surprise = [
 
 const articles = [
     {
+        id: 'RF-Remote-control-research',
+        title: 'RF遥控器研究',  
+        file: 'article/车库门遥控器信号分析.html',
+        date: '「New」2026-07-14'
+    },
+    {
         id: 'wt8-driver',
         title: '东芝WT8平板驱动',
         file: 'article/东芝WT8平板驱动.html',
-        date: '「New」2026-06-25'
+        date: '2026-06-25'
     },
     {
         id: 'ch9143',
@@ -76,6 +82,12 @@ const friendLinks = [
         url: 'https://ias1054.cn',
         avatar: 'favicon.svg',
         description: '记录'
+    },
+    {
+        name: '鸡仔的VibeCode展馆',
+        url: 'https://vibe.ias1054.cn',
+        avatar: 'favicon.svg',
+        description: '展示如何使用ai生成代码'
     }
 ];
 
