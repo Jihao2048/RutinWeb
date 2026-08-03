@@ -1,14 +1,15 @@
 /* ALL RIGHTS RESERVED 保留所有权利 未经允许不得复制、修改、分发或销售本软件的副本 */
 @font-face {
   font-family: '荆南俊俊体';
-  src: url('荆南俊俊.ttf') format('truetype');
+  src: url('荆南俊俊.woff2') format('woff2');
 }
+/* 兼容性考虑ttf */
 @font-face {
   font-family: '荆南麦圆体';
   src: url('荆南麦圆.ttf') format('truetype');      
 }
 :root {
-  --main-font: '荆南俊俊体', 'Roboto', sans-serif;
+  --main-font: 'Google Sans','荆南俊俊体', sans-serif;
   --primary-bg: #f9f9f9;
   --card-bg: rgba(255, 255, 255, 0.1);
   --accent-color: #2196F3;
