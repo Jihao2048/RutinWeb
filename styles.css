@@ -12,8 +12,8 @@
   --primary-bg: #f9f9f9;
   --card-bg: rgba(255, 255, 255, 0.1);
   --accent-color: #2196F3;
-  --text-primary: #fff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-primary: #000;
+  --text-secondary: #666;
   --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
   --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.15);
   --border-radius: 20px;
@@ -24,6 +24,13 @@
 
 * {
   box-sizing: border-box;
+}
+
+p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, div, b, strong, i, em, label, input, textarea, button, .menu-item, .article-item, .friend-link-card, .project-card, .contact-link, .lyric-text, .playback-status, .announcement-content {
+  text-shadow: 
+    0 0 3px #fff,
+    0 0 6px #fff,
+    0 0 10px #fff;
 }
 
 h2, h3, ul, table {
@@ -44,7 +51,7 @@ body {
   left: 0;
   right: 0;
   height: 100%;
-  background: url('https://bing.img.run/rand_1366x768.php') center/cover no-repeat;
+  background: url('background.png') center/cover no-repeat;
 }
 
 
