@@ -38,12 +38,6 @@ const articles = [
         date: '2026-06-14'
     },
     {
-        id: 'jihaos-essay',
-        title: '鸡好的作文高分秘诀',
-        file: 'article/作文高分秘诀.html',
-        date: '2026-06-01'
-    },
-    {
         id: 'esp32c3-supermini',
         title: 'ESP32C3SuperMini',
         file: 'article/ESP32C3SuperMini.html',

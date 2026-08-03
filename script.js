@@ -252,7 +252,7 @@ function goBack() {
     playInteractionSound();
     if (currentView === 'article-detail') {
         loadContent(0);
-        document.title = 'IAS个人网站';
+        document.title = '鸡仔个人网站';
         window.history.pushState({}, '', window.location.pathname);
     }
 }
